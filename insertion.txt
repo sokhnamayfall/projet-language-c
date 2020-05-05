@@ -1,0 +1,23 @@
+
+typedef struct Element Element;
+  struct Element {     
+  	int nombre;    
+  	Element *suivant; 
+  };
+
+typedef struct Liste Liste;
+ struct Liste {    
+ 	Element *premier; 
+ };
+void insertion(Liste *liste, int nvNombre) {
+
+    /* Création du nouvel élément */    
+    Element *nouveau = malloc(sizeof(*nouveau));    
+    if (liste == NULL || nouveau == NULL)    {        
+        exit(EXIT_FAILURE);    
+    }    
+    /* Insertion de l'élément au début de la liste */
+    nouveau->nombre = nvNombre;        
+    nouveau->suivant = liste->premier;    
+    liste->premier = nouveau; 
+ }
