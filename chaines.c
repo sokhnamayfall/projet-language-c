@@ -1,3 +1,5 @@
+#include<stdio.h>
+
 typedef struct Element Element;
   struct Element {     
   	int nombre;    
