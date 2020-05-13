@@ -118,7 +118,7 @@ void afficherListe(Liste *liste)
     printf("La liste des machines est :");
     while (actuel != NULL)
     {
-        printf("\nla machine -> %s d'adresse_ip -> %s et d'adresse_mac -> %s", actuel->nomComputer,actuel->ip,actuel->mac);
+        printf("\nMachine -> %s \nAdresse_ip -> %s \nAdresse_mac -> %s\n\n", actuel->nomComputer,actuel->ip,actuel->mac);
         actuel = actuel->prochain;
     }
 
@@ -185,19 +185,23 @@ B:  printf("\nChoisissez parmi ces options selon l'action a faire:\n\n");
         scanf("%s", clt);
         insertion(*liste, clt) ;
        */
+      goto B ;
       break;
 
       case 2:
       suppression(maListe);  
+      goto B ;
       break ;
 
 
       case 3: 
+        goto B ;
 
       break ;
       
       case 5:
         afficherListe(maListe);
+        goto B ;
       break ;
 
       case 0:
@@ -233,20 +237,39 @@ C:  printf("\nChoisissez parmi ces options selon l'action a faire:\n\n");
         Computer *actuel = maListe->premier;
         while (actuel != NULL)
         {
-          if (machname==actuel->nomComputer){
+          if(strcmp(machname,actuel->nomComputer)==0){
             actuel->connect = OUI ;
-            printf("La machine a bien été ajoutée") ;
+            printf("La machine a bien ete ajoutee") ;
+            break;
           }else{
             actuel = actuel->prochain;
           }
+          printf("La machine n'existe pas");
         }
-        if (actuel == NULL) {printf("\nLa machine n'existe pas") ;}
+      goto C;  
       break;
 
     case 2:
+        afficherListe(maListe);
+        printf("\nEntrez le nom de la machine a retirer : ");
+        scanf("%s",machname);
+        actuel = maListe->premier;
+        while (actuel != NULL)
+        {
+          if(strcmp(machname,actuel->nomComputer)==0){
+            actuel->connect = NON ;
+            printf("La machine a bien ete retiree") ;
+            break;
+          }else{
+            actuel = actuel->prochain;
+          }
+          printf("La machine n'existe pas");
+        }
+        goto C;
       break;
 
-    case 5:     
+    case 3:    
+        afficherListe(maListe); 
         printf("entrer l'addresse_ip de la machine a pinger:");
         scanf("%s",comp_ip);
         
@@ -269,9 +292,25 @@ C:  printf("\nChoisissez parmi ces options selon l'action a faire:\n\n");
           printf("\n");
           printf("la machine n'est pas presente \n");
         }
+        goto C;
       break ;
     
     case 4:
+        actuel = maListe->premier;
+        printf("La liste des machines du reseau est :");
+        int cpt=0 ;
+    while (actuel != NULL)
+    {   
+        if(actuel->connect == OUI){
+        printf("\nla machine -> %s d'adresse_ip -> %s et d'adresse_mac -> %s\n\n", actuel->nomComputer,actuel->ip,actuel->mac);
+        actuel = actuel->prochain;
+        cpt++ ;1
+        }
+    }
+    if (cpt==0){
+        printf("vide");
+    }
+        goto C;
       break;
 
     case 0:
@@ -293,7 +332,7 @@ C:  printf("\nChoisissez parmi ces options selon l'action a faire:\n\n");
     goto A ;
   }
   int choix ;
-    printf("\nVoulez vous recommencer ?\n");
+    printf("\n\n\n Merci d'avoir utilisé notre programme. Voulez vous recommencer ?\n");
     printf("Taper sur 1 pour oui et une autre touche pour non........... ");
     scanf("%d",&choix);
       if (choix==1){
