@@ -343,3 +343,46 @@ C:  printf("\nChoisissez parmi ces options selon l'action a faire:\n\n");
       }  
 }
 
+
+
+//Fichier pour machine
+parc *backup(){
+	parc *list=NULL;
+	char* storeFile={"Store.dat"}
+	FILE *file;
+	machine *m=malloc(sizeof(machine));
+	parc *p=malloc(sizeof(parc));
+	if(p==NULL)
+		printf("ERREUR !!! \n");
+	else{
+		if ((file=fopen(storeFile,"rb"))){
+			puts("C'est bon !!! \n");
+			puts("----------------------------------------------------");
+			while(fread(m, sizeof(machine), 1, file)>0){
+				if(m!=NULL){
+					afficheNom(m);
+					afficheMacAddr(m);
+					afficheIpAddre(m);
+					
+					p->machine=m;
+					p->next=NULL;
+					if(list=NULL)
+						list=p;
+					else{
+						parc *tmp=list;
+						while(tmp->next!=NULL)
+							tmp=tmp->next;
+						tmp->next=p;
+					}
+				}
+				else{
+					printf(" Pas de machine trouvé !!! \n");
+				}
+			}
+			fclose(file);
+		}
+		else
+			printf("Echec lors de l'ouverture ...\n");
+	}
+	return list;
+}
